@@ -1,0 +1,151 @@
+* { box-sizing: border-box; } 
+
+body { 
+    font-family: Arial, sans-serif; 
+    text-align: center; 
+    margin: 0; 
+    padding: 20px; 
+    display: flex; 
+    flex-direction: column; 
+    min-height: 100vh; 
+} 
+
+/* Header & Nav */ 
+.hdr { 
+    letter-spacing: 0.3em; 
+    border: 2px solid #555555; 
+    padding: 10px 0; 
+    position: relative; 
+    z-index: 10; 
+} 
+
+.menu-nav { 
+    padding: 10px; 
+    border: 2px solid #555555; 
+    border-top: none; 
+    position: relative; 
+    z-index: 10; 
+} 
+
+.hdr h1 { 
+    margin: 0; 
+    font-size: 4rem; 
+} 
+
+.button-menu { 
+    list-style: none; 
+    padding: 0; 
+    margin: 0; 
+    display: flex; 
+    gap: 10px; 
+} 
+
+.button-menu li { 
+    flex: 1; 
+} 
+
+.button-menu a { 
+    display: block; 
+    text-decoration: none; 
+    color: #000; 
+    background: #f0f0f0; 
+    border: 1px solid #000; 
+    padding: 10px 0; 
+    font-weight: bold; 
+    transition: background 0.2s, color 0.2s; 
+} 
+
+.button-menu a:hover { 
+    background: #000; 
+    color: #fff; 
+}
+
+/* Main Content Area */ 
+.main { 
+    flex: 1; 
+    margin: 20px 0; 
+} 
+
+/* Default 4-column layout for sections */ 
+.grid-row { 
+    display: grid; 
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 20px; 
+    width: 100%; 
+    padding: 20px 0; 
+    box-sizing: border-box; 
+} 
+
+/* 3-column inline layout for main section */ 
+.main .grid-row { 
+    grid-template-columns: repeat(3, 1fr); 
+} 
+
+.box-section { 
+    flex: 1; 
+    text-align: left; 
+    border: 1px solid #000; 
+    padding: 15px; 
+    display: flex; 
+    flex-wrap: wrap; 
+    gap: 20px; 
+} 
+
+.box-content { 
+    overflow-wrap: break-word; 
+    width: 100%; 
+} 
+
+.box-content h3 { 
+    margin-top: 0; 
+} 
+
+.box-content img { 
+    width: 100%; 
+    height: auto; 
+    display: block; 
+} 
+
+/* Footer */ 
+.ftr { 
+    border: 1px solid #000; 
+    padding: 15px 0; 
+} 
+
+.site-name { 
+    margin-right: 15px; 
+    font-weight: bold; 
+} 
+
+/* ========================================================================== NEW STYLES ADDED BELOW ========================================================================== */ 
+/* Smooth scrolling to anchor links */ 
+html { 
+    scroll-behavior: smooth; 
+} 
+
+/* Fixed: Box container styles applied properly to both sections */ 
+#hrzn .box-content, #cosm .box-content, #land .box-content, #rcp .box-content { 
+    border: 2px solid #ddd; 
+    border-radius: 8px; 
+    padding: 15px; 
+    background-color: #f9f9f9; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    text-align: center; 
+} 
+
+/* Fixed: Image sizing for responsiveness within boxes */ 
+#hrzn .box-content img, #land .box-content img, #cosm .box-content img, #rcp .box-content img { 
+    width: 100%; 
+    height: auto; 
+    border-radius: 4px; 
+} 
+
+/* Fixed: Title styling (Number & Date) */ 
+#hrzn .video-title, #cosm .video-title, #land .video-title, #rcp .video-title { 
+    margin-top: 10px; 
+    font-size: 16px; 
+    font-weight: bold; 
+    color: #333; 
+}
