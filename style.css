@@ -124,7 +124,7 @@ html {
 } 
 
 /* Fixed: Box container styles applied properly to both sections */ 
-#hrzn .box-content, #cosm .box-content, #land .box-content, #rcp .box-content { 
+#hrzn .box-content, #cosm .box-content, #stllfe .box-content, #rcp .box-content { 
     border: 2px solid #ddd; 
     border-radius: 8px; 
     padding: 15px; 
@@ -136,14 +136,14 @@ html {
 } 
 
 /* Fixed: Image sizing for responsiveness within boxes */ 
-#hrzn .box-content img, #land .box-content img, #cosm .box-content img, #rcp .box-content img { 
+#hrzn .box-content img, #stllfe .box-content img, #cosm .box-content img, #rcp .box-content img { 
     width: 100%; 
     height: auto; 
     border-radius: 4px; 
 } 
 
 /* Fixed: Title styling (Number & Date) */ 
-#hrzn .video-title, #cosm .video-title, #land .video-title, #rcp .video-title { 
+#hrzn .video-title, #cosm .video-title, #stllfe .video-title, #rcp .video-title { 
     margin-top: 10px; 
     font-size: 16px; 
     font-weight: bold; 
