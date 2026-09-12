@@ -7,8 +7,8 @@ const galleryRegistry = [
     },
     {
         sourceFile: "ChloeArt/index-chloe.html", 
-        filename: "ChloeArt/CA_505.png", 
-        title: "Starry Night",
+        filename: "ChloeArt/CA_185.png", 
+        title: "#185 - Nov 4, 2020",
         label: "cosmic"
     },
     {
