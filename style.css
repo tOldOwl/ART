@@ -173,7 +173,7 @@ body {
 }
 
 /* Responsive Image Controls */ 
-#hrzn img, #stllfe img, #cosm img, #rcp img { 
+#hrzn img, #stllfe img, #cosm img, #land img, #pntg img { 
     width: 100%; 
     height: auto; 
     border-radius: 4px; 
