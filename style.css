@@ -72,7 +72,7 @@ body {
 }
 
 /* ==========================================================================
-   3. GALLERY DISPLAY GRID
+   3. Artist's GALLERY DISPLAY GRID
    ========================================================================== */
 .main { 
     flex: 1; 
@@ -102,8 +102,7 @@ body {
     border: 1px solid #000; 
     padding: 15px; 
     gap: 20px; 
-} 
-
+}
 /* ==========================================================================
    4. INNER ELEMENT SPECIFIC STYLING 
    ========================================================================== */
@@ -178,14 +177,326 @@ body {
     height: auto; 
     border-radius: 4px; 
     display: block;
-} 
+}
+/* ==========================================================================
+   YOUTUBE HORIZONTAL VIDEO FEED
+   ========================================================================== */
 
-/* Metadata Caption Text (Number & Date Labels) */ 
-.video-title { 
-    margin: 10px 0 0 0; 
-    font-size: 16px; 
-    font-weight: bold; 
-    color: #555; 
+.youtube-feed-wrapper {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 20px 0 30px 0;
+}
+
+/* --------------------------------------------------------------------------
+   SINGLE HORIZONTAL ROW
+   -------------------------------------------------------------------------- */
+
+.video-feed-row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+
+    flex: 1;
+    min-width: 0;
+
+    gap: 16px;
+
+    overflow-x: scroll;
+    overflow-y: hidden;
+
+    width: 100%;
+
+    scroll-behavior: smooth;
+}
+
+.video-feed-row::-webkit-scrollbar {
+    display: none;
+}
+
+
+/* --------------------------------------------------------------------------
+   INDIVIDUAL VIDEO CARD
+   -------------------------------------------------------------------------- */
+
+.video-feed-row .youtube-card-item {
+    flex: 0 0 280px;
+    width: 280px;
+    min-width: 280px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    text-align: center;
+}
+
+
+/* --------------------------------------------------------------------------
+   THUMBNAIL
+   -------------------------------------------------------------------------- */
+
+.video-feed-row .youtube-card-item img {
+    display: block;
+
+    width: 280px;
+    height: 158px;
+
+    object-fit: cover;
+
+    border-radius: 4px;
+
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+
+    margin: 10px 0;
+}
+
+
+/* --------------------------------------------------------------------------
+   HIDE VIDEO TITLE
+   -------------------------------------------------------------------------- */
+
+.video-feed-row .youtube-card-item h3,
+.video-feed-row .youtube-card-item h4,
+.video-feed-row .youtube-card-item .video-title,
+.video-feed-row .youtube-card-item .title {
+    display: none !important;
+}
+
+
+/* --------------------------------------------------------------------------
+   ARTIST
+   -------------------------------------------------------------------------- */
+
+.video-feed-row .youtube-card-item .artist-name,
+.video-feed-row .youtube-card-item .channel-name,
+.video-feed-row .youtube-card-item .channel-title {
+    margin: 0 0 4px 0;
+
+    font-size: 14px;
+
+    color: #000;
+
+    order: 1;
+}
+
+/* --------------------------------------------------------------------------
+   DATE
+   -------------------------------------------------------------------------- */
+
+.video-feed-row .youtube-card-item .video-date,
+.video-feed-row .youtube-card-item .date {
+    margin: 4px 0 0 0;
+
+    font-size: 13px;
+
+    color: #555;
+
+    order: 3;
+}
+
+
+/* --------------------------------------------------------------------------
+   SCROLL ARROWS
+   -------------------------------------------------------------------------- */
+
+.youtube-scroll-arrow {
+    flex: 0 0 42px;
+
+    width: 42px;
+    height: 42px;
+
+    border: 1px solid #000;
+
+    background: #f0f0f0;
+
+    color: #000;
+
+    font-size: 24px;
+    line-height: 1;
+
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    z-index: 2;
+}
+
+.youtube-scroll-arrow:hover {
+    background: #000;
+    color: #fff;
+}
+/* =========================================================
+   YOUTUBE FEED WRAPPER
+   ========================================================= */
+
+.youtube-feed-wrapper {
+    position: relative;
+
+    width: 100%;
+    box-sizing: border-box;
+
+    margin: 20px 0 30px 0;
+}
+
+
+/* =========================================================
+   YOUTUBE VIDEO CONTAINER
+   ========================================================= */
+
+#youtube-video-container {
+    display: flex !important;
+    flex-direction: row;
+    flex-wrap: nowrap;
+
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+
+    gap: 16px;
+
+    margin: 0;
+    padding: 20px;
+
+    border: 2px solid #000 !important;
+    background-color: #fff;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    scroll-behavior: smooth;
+
+    /* Hide scrollbar */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+#youtube-video-container::-webkit-scrollbar {
+    display: none;
+}
+
+/* =========================================================
+   EACH VIDEO CARD / THUMBNAIL LINK
+   ========================================================= */
+
+#youtube-video-container .youtube-card-item {
+    flex: 0 0 280px;
+    width: 280px;
+    min-width: 280px;
+
+    box-sizing: border-box;
+
+    text-align: center;
+
+    border: 2px solid #000 !important;
+
+    padding: 6px;
+
+    background: #fff;
+}
+
+#youtube-video-container .card-thumbnail a {
+    display: block;
+
+    width: 100%;
+    box-sizing: border-box;
+
+    border: none !important;
+    padding: 0;
+}
+
+#youtube-video-container .card-thumbnail img {
+    display: block;
+
+    width: 100%;
+    height: auto;
+
+    aspect-ratio: 16 / 9;
+
+    object-fit: cover;
+}
+
+/* =========================================================
+   VIDEO INFORMATION
+   ========================================================= */
+
+#youtube-video-container .card-header {
+    display: none;
+    width: 100%;
+}
+
+#youtube-video-container .card-header h3 {
+    margin: 8px 0;
+}
+
+#youtube-video-container .card-footer {
+    width: 100%;
+}
+
+#youtube-video-container .artist-name,
+#youtube-video-container .video-date {
+    margin: 4px 0;
+}
+
+
+/* =========================================================
+   SCROLL BUTTONS
+   ========================================================= */
+
+.youtube-scroll-arrow {
+    position: absolute;
+
+    top: 50%;
+    transform: translateY(-50%);
+
+    z-index: 10;
+
+    width: 42px;
+    height: 60px;
+
+    border: 2px solid #000;
+    background: #fff;
+
+    cursor: pointer;
+
+    font-size: 28px;
+    line-height: 1;
+}
+
+
+/* LEFT BUTTON */
+
+.youtube-scroll-left {
+    left: 0;
+}
+
+
+/* RIGHT BUTTON */
+
+.youtube-scroll-right {
+    right: 0;
+}
+/* --------------------------------------------------------------------------
+   MOBILE
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 600px) {
+
+    .video-feed-row .youtube-card-item {
+        flex-basis: 240px;
+        width: 240px;
+    }
+
+    .youtube-scroll-arrow {
+        width: 36px;
+        height: 36px;
+        font-size: 20px;
+    }
 }
 
 /* ==========================================================================
