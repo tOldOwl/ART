@@ -1,9 +1,4 @@
 // =========================================================================
-// 1. MULTI-ARTIST AUTOMATIC YOUTUBE RECONCILER
-// =========================================================================
-const API_KEY = 'AIzaSyBuXqiFnTh8Qb_aY3rd_-yb-HNcJmkOvA4';
-
-// =========================================================================
 // ARTIST UPLOAD PLAYLISTS
 // =========================================================================
 
@@ -47,61 +42,48 @@ async function loadLatestVideos() {
     }
 
 
-    // Clear the existing contents
-    videoFeed.innerHTML = '';
+// Clear the existing contents
+videoFeed.innerHTML = '';
 
+// Array containing videos from all three artists
+const allVideos = [];
 
-    // Array containing videos from all three artists
-    const allVideos = [];
+// ---------------------------------------------------------------------
+// GET 10 VIDEOS FROM EACH ARTIST
+// ---------------------------------------------------------------------
 
+for (const artist of ARTIST_PLAYLISTS) {
 
-    // ---------------------------------------------------------------------
-    // GET 10 VIDEOS FROM EACH ARTIST
-    // ---------------------------------------------------------------------
+    try {
 
-    for (const artist of ARTIST_PLAYLISTS) {
+        const response = await fetch(
+            "https://tpaintedowl.atwebpages.com/Art/api/youtube.php?playlistId=" +
+            encodeURIComponent(artist.id)
+        );
 
-        const url =
-            'https://www.googleapis.com/youtube/v3/playlistItems' +
-            '?part=snippet' +
-            '&playlistId=' +
-            encodeURIComponent(artist.id) +
-            '&maxResults=' +
-            VIDEOS_PER_ARTIST +
-            '&key=' +
-            encodeURIComponent(API_KEY);
+        // -------------------------------------------------------------
+        // YOUTUBE REQUEST ERROR
+        // -------------------------------------------------------------
 
+        if (!response.ok) {
 
-        try {
+            const errorText =
+                await response.text();
 
-            const response = await fetch(url);
+            console.error(
+                'YouTube request failed for ' +
+                artist.name +
+                ': ' +
+                response.status,
+                errorText
+            );
 
+            continue;
+        }
 
-            // -------------------------------------------------------------
-            // YOUTUBE REQUEST ERROR
-            // -------------------------------------------------------------
-
-            if (!response.ok) {
-
-                const errorText =
-                    await response.text();
-
-                console.error(
-                    'YouTube request failed for ' +
-                    artist.name +
-                    ': ' +
-                    response.status,
-                    errorText
-                );
-
-                continue;
-            }
-
-
-            const data =
-                await response.json();
-
-
+        const data =
+            await response.json();
+			
             // -------------------------------------------------------------
             // NO VIDEOS
             // -------------------------------------------------------------
