@@ -1,3 +1,5 @@
+const API_KEY = 'AIzaSyDrZkxff5nA4vvL4aP9ikB28N9FGk2aMXk';
+
 // =========================================================================
 // ARTIST UPLOAD PLAYLISTS
 // =========================================================================
@@ -57,8 +59,13 @@ for (const artist of ARTIST_PLAYLISTS) {
     try {
 
         const response = await fetch(
-            "https://tpaintedowl.atwebpages.com/Art/api/youtube.php?playlistId=" +
-            encodeURIComponent(artist.id)
+            "https://www.googleapis.com/youtube/v3/playlistItems?" +
+            new URLSearchParams({
+                part: "snippet",
+                playlistId: artist.id,
+                maxResults: "10",
+                key: API_KEY
+            })
         );
 
         // -------------------------------------------------------------
@@ -71,9 +78,9 @@ for (const artist of ARTIST_PLAYLISTS) {
                 await response.text();
 
             console.error(
-                'YouTube request failed for ' +
+                "YouTube request failed for " +
                 artist.name +
-                ': ' +
+                ": " +
                 response.status,
                 errorText
             );
@@ -81,127 +88,127 @@ for (const artist of ARTIST_PLAYLISTS) {
             continue;
         }
 
+
         const data =
             await response.json();
-			
-            // -------------------------------------------------------------
-            // NO VIDEOS
-            // -------------------------------------------------------------
 
+
+        // -------------------------------------------------------------
+        // NO VIDEOS
+        // -------------------------------------------------------------
+
+        if (
+            !data.items ||
+            data.items.length === 0
+        ) {
+
+            console.warn(
+                'No videos found for ' +
+                artist.name
+            );
+
+            continue;
+        }
+
+
+        // -------------------------------------------------------------
+        // ADD THE VIDEOS TO THE MASTER ARRAY
+        // -------------------------------------------------------------
+
+        for (const item of data.items) {
+
+            const snippet =
+                item.snippet;
+
+
+            // Ignore invalid/deleted videos
             if (
-                !data.items ||
-                data.items.length === 0
+                !snippet ||
+                !snippet.resourceId ||
+                !snippet.resourceId.videoId
             ) {
-
-                console.warn(
-                    'No videos found for ' +
-                    artist.name
-                );
-
                 continue;
             }
 
 
-            // -------------------------------------------------------------
-            // ADD THE VIDEOS TO THE MASTER ARRAY
-            // -------------------------------------------------------------
-
-            for (const item of data.items) {
-
-                const snippet =
-                    item.snippet;
+            const videoId =
+                snippet.resourceId.videoId;
 
 
-                // Ignore invalid/deleted videos
-                if (
-                    !snippet ||
-                    !snippet.resourceId ||
-                    !snippet.resourceId.videoId
-                ) {
-                    continue;
-                }
+            // ---------------------------------------------------------
+            // FIND BEST AVAILABLE THUMBNAIL
+            // ---------------------------------------------------------
+
+            let thumbnail = '';
 
 
-                const videoId =
-                    snippet.resourceId.videoId;
+            if (
+                snippet.thumbnails &&
+                snippet.thumbnails.maxres
+            ) {
 
+                thumbnail =
+                    snippet.thumbnails.maxres.url;
 
-                // ---------------------------------------------------------
-                // FIND BEST AVAILABLE THUMBNAIL
-                // ---------------------------------------------------------
+            } else if (
+                snippet.thumbnails &&
+                snippet.thumbnails.high
+            ) {
 
-                let thumbnail = '';
+                thumbnail =
+                    snippet.thumbnails.high.url;
 
+            } else if (
+                snippet.thumbnails &&
+                snippet.thumbnails.medium
+            ) {
 
-                if (
-                    snippet.thumbnails &&
-                    snippet.thumbnails.maxres
-                ) {
+                thumbnail =
+                    snippet.thumbnails.medium.url;
 
-                    thumbnail =
-                        snippet.thumbnails.maxres.url;
+            } else if (
+                snippet.thumbnails &&
+                snippet.thumbnails.default
+            ) {
 
-                } else if (
-                    snippet.thumbnails &&
-                    snippet.thumbnails.high
-                ) {
-
-                    thumbnail =
-                        snippet.thumbnails.high.url;
-
-                } else if (
-                    snippet.thumbnails &&
-                    snippet.thumbnails.medium
-                ) {
-
-                    thumbnail =
-                        snippet.thumbnails.medium.url;
-
-                } else if (
-                    snippet.thumbnails &&
-                    snippet.thumbnails.default
-                ) {
-
-                    thumbnail =
-                        snippet.thumbnails.default.url;
-                }
-
-
-                // ---------------------------------------------------------
-                // ADD VIDEO
-                // ---------------------------------------------------------
-
-                allVideos.push({
-
-                    artist:
-                        artist.name,
-
-                    videoId:
-                        videoId,
-
-                    title:
-                        snippet.title,
-
-                    publishedAt:
-                        snippet.publishedAt,
-
-                    thumbnail:
-                        thumbnail
-                });
+                thumbnail =
+                    snippet.thumbnails.default.url;
             }
 
 
-        } catch (error) {
+            // ---------------------------------------------------------
+            // ADD VIDEO
+            // ---------------------------------------------------------
 
-            console.error(
-                'Failed to load videos for ' +
-                artist.name,
-                error
-            );
+            allVideos.push({
+
+                artist:
+                    artist.name,
+
+                videoId:
+                    videoId,
+
+                title:
+                    snippet.title,
+
+                publishedAt:
+                    snippet.publishedAt,
+
+                thumbnail:
+                    thumbnail
+            });
         }
+
+
+    } catch (error) {
+
+        console.error(
+            'Failed to load videos for ' +
+            artist.name,
+            error
+        );
     }
-
-
+}
     // =========================================================================
     // SORT ALL 30 VIDEOS BY PUBLICATION DATE
     // =========================================================================
