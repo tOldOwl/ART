@@ -1,5 +1,3 @@
-const API_KEY = 'AIzaSyDrZkxff5nA4vvL4aP9ikB28N9FGk2aMXk';
-
 // =========================================================================
 // ARTIST UPLOAD PLAYLISTS
 // =========================================================================
@@ -58,15 +56,10 @@ for (const artist of ARTIST_PLAYLISTS) {
 
     try {
 
-        const response = await fetch(
-            "https://www.googleapis.com/youtube/v3/playlistItems?" +
-            new URLSearchParams({
-                part: "snippet",
-                playlistId: artist.id,
-                maxResults: "10",
-                key: API_KEY
-            })
-        );
+const response = await fetch(
+    "https://art-youtube-proxy.tpaintedowl.workers.dev/?playlistId=" +
+    encodeURIComponent(artist.id)
+);
 
         // -------------------------------------------------------------
         // YOUTUBE REQUEST ERROR
