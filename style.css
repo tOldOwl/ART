@@ -181,14 +181,24 @@ body {
 /* ==========================================================================
    YOUTUBE HORIZONTAL VIDEO FEED
    ========================================================================== */
-
+   
 .youtube-feed-wrapper {
     position: relative;
     width: 100%;
-    display: flex;
-    align-items: center;
-    gap: 10px;
+    box-sizing: border-box;
     margin: 20px 0 30px 0;
+    border: 2px solid #000;
+    background-color: #fff;
+}
+
+.youtube-feed-title {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 12px 16px;
+    text-align: center;
+    border-bottom: 1px solid #000;
 }
 
 /* --------------------------------------------------------------------------
@@ -331,19 +341,6 @@ body {
     background: #000;
     color: #fff;
 }
-/* =========================================================
-   YOUTUBE FEED WRAPPER
-   ========================================================= */
-
-.youtube-feed-wrapper {
-    position: relative;
-
-    width: 100%;
-    box-sizing: border-box;
-
-    margin: 20px 0 30px 0;
-}
-
 
 /* =========================================================
    YOUTUBE VIDEO CONTAINER
@@ -359,19 +356,16 @@ body {
     box-sizing: border-box;
 
     gap: 16px;
-
     margin: 0;
     padding: 20px;
 
-    border: 2px solid #000 !important;
+    border: none !important;
     background-color: #fff;
 
     overflow-x: auto;
     overflow-y: hidden;
-
     scroll-behavior: smooth;
 
-    /* Hide scrollbar */
     scrollbar-width: none;
     -ms-overflow-style: none;
 }
